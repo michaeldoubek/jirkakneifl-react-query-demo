@@ -35,7 +35,12 @@ export function useApiContext<
   TError = unknown,
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
->(_queryOptions?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>): ApiContext {
+>(
+  _queryOptions?: Omit<
+    UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+    'queryKey' | 'queryFn'
+  >,
+): ApiContext {
   return {
     fetcherOptions: {},
     queryOptions: {},

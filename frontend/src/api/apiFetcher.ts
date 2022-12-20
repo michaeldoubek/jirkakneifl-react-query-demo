@@ -1,8 +1,10 @@
 import { ApiContext } from './apiContext';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = ''; // TODO add your baseUrl
 
-export type ErrorWrapper<TError> = TError | { status: 'unknown'; payload: string };
+export type ErrorWrapper<TError> =
+  | TError
+  | { status: 'unknown'; payload: string };
 
 export type ApiFetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
   url: string;
@@ -29,17 +31,25 @@ export async function apiFetch<
   pathParams,
   queryParams,
   signal,
-}: ApiFetcherOptions<TBody, THeaders, TQueryParams, TPathParams>): Promise<TData> {
+}: ApiFetcherOptions<
+  TBody,
+  THeaders,
+  TQueryParams,
+  TPathParams
+>): Promise<TData> {
   try {
-    const response = await window.fetch(`${baseUrl}${resolveUrl(url, queryParams, pathParams)}`, {
-      signal,
-      method: method.toUpperCase(),
-      body: body ? JSON.stringify(body) : undefined,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
+    const response = await window.fetch(
+      `${baseUrl}${resolveUrl(url, queryParams, pathParams)}`,
+      {
+        signal,
+        method: method.toUpperCase(),
+        body: body ? JSON.stringify(body) : undefined,
+        headers: {
+          'Content-Type': 'application/json',
+          ...headers,
+        },
       },
-    });
+    );
     if (!response.ok) {
       let error: ErrorWrapper<TError>;
       try {
@@ -47,7 +57,10 @@ export async function apiFetch<
       } catch (e) {
         error = {
           status: 'unknown' as const,
-          payload: e instanceof Error ? `Unexpected error (${e.message})` : 'Unexpected error',
+          payload:
+            e instanceof Error
+              ? `Unexpected error (${e.message})`
+              : 'Unexpected error',
         };
       }
 
@@ -63,12 +76,17 @@ export async function apiFetch<
   } catch (e) {
     throw {
       status: 'unknown' as const,
-      payload: e instanceof Error ? `Network error (${e.message})` : 'Network error',
+      payload:
+        e instanceof Error ? `Network error (${e.message})` : 'Network error',
     };
   }
 }
 
-const resolveUrl = (url: string, queryParams: Record<string, string> = {}, pathParams: Record<string, string> = {}) => {
+const resolveUrl = (
+  url: string,
+  queryParams: Record<string, string> = {},
+  pathParams: Record<string, string> = {},
+) => {
   let query = new URLSearchParams(queryParams).toString();
   if (query) query = `?${query}`;
   return url.replace(/\{\w*\}/g, (key) => pathParams[key.slice(1, -1)]) + query;

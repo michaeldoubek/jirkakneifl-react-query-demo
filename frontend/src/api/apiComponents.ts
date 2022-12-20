@@ -15,25 +15,41 @@ export type AppControllerListPostsResponse = Schemas.PostResponse[];
 
 export type AppControllerListPostsVariables = ApiContext['fetcherOptions'];
 
-export const fetchAppControllerListPosts = (variables: AppControllerListPostsVariables, signal?: AbortSignal) =>
-  apiFetch<AppControllerListPostsResponse, AppControllerListPostsError, undefined, {}, {}, {}>({
-    url: '/',
-    method: 'get',
-    ...variables,
-    signal,
-  });
+export const fetchAppControllerListPosts = (
+  variables: AppControllerListPostsVariables,
+  signal?: AbortSignal,
+) =>
+  apiFetch<
+    AppControllerListPostsResponse,
+    AppControllerListPostsError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/', method: 'get', ...variables, signal });
 
-export const useAppControllerListPosts = <TData = AppControllerListPostsResponse>(
+export const useAppControllerListPosts = <
+  TData = AppControllerListPostsResponse,
+>(
   variables: AppControllerListPostsVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<AppControllerListPostsResponse, AppControllerListPostsError, TData>,
+    reactQuery.UseQueryOptions<
+      AppControllerListPostsResponse,
+      AppControllerListPostsError,
+      TData
+    >,
     'queryKey' | 'queryFn'
   >,
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } = useApiContext(options);
-  return reactQuery.useQuery<AppControllerListPostsResponse, AppControllerListPostsError, TData>(
+  return reactQuery.useQuery<
+    AppControllerListPostsResponse,
+    AppControllerListPostsError,
+    TData
+  >(
     queryKeyFn({ path: '/', operationId: 'appControllerListPosts', variables }),
-    ({ signal }) => fetchAppControllerListPosts({ ...fetcherOptions, ...variables }, signal),
+    ({ signal }) =>
+      fetchAppControllerListPosts({ ...fetcherOptions, ...variables }, signal),
     {
       ...options,
       ...queryOptions,
@@ -47,23 +63,37 @@ export type AppControllerCreatePostVariables = {
   body: Schemas.PostDto;
 } & ApiContext['fetcherOptions'];
 
-export const fetchAppControllerCreatePost = (variables: AppControllerCreatePostVariables, signal?: AbortSignal) =>
-  apiFetch<Schemas.PostResponse, AppControllerCreatePostError, Schemas.PostDto, {}, {}, {}>({
-    url: '/',
-    method: 'post',
-    ...variables,
-    signal,
-  });
+export const fetchAppControllerCreatePost = (
+  variables: AppControllerCreatePostVariables,
+  signal?: AbortSignal,
+) =>
+  apiFetch<
+    Schemas.PostResponse,
+    AppControllerCreatePostError,
+    Schemas.PostDto,
+    {},
+    {},
+    {}
+  >({ url: '/', method: 'post', ...variables, signal });
 
 export const useAppControllerCreatePost = (
   options?: Omit<
-    reactQuery.UseMutationOptions<Schemas.PostResponse, AppControllerCreatePostError, AppControllerCreatePostVariables>,
+    reactQuery.UseMutationOptions<
+      Schemas.PostResponse,
+      AppControllerCreatePostError,
+      AppControllerCreatePostVariables
+    >,
     'mutationFn'
   >,
 ) => {
   const { fetcherOptions } = useApiContext();
-  return reactQuery.useMutation<Schemas.PostResponse, AppControllerCreatePostError, AppControllerCreatePostVariables>(
-    (variables: AppControllerCreatePostVariables) => fetchAppControllerCreatePost({ ...fetcherOptions, ...variables }),
+  return reactQuery.useMutation<
+    Schemas.PostResponse,
+    AppControllerCreatePostError,
+    AppControllerCreatePostVariables
+  >(
+    (variables: AppControllerCreatePostVariables) =>
+      fetchAppControllerCreatePost({ ...fetcherOptions, ...variables }),
     options,
   );
 };
@@ -78,25 +108,43 @@ export type AppControllerGetPostVariables = {
   pathParams: AppControllerGetPostPathParams;
 } & ApiContext['fetcherOptions'];
 
-export const fetchAppControllerGetPost = (variables: AppControllerGetPostVariables, signal?: AbortSignal) =>
-  apiFetch<Schemas.PostResponse, AppControllerGetPostError, undefined, {}, {}, AppControllerGetPostPathParams>({
-    url: '/{id}',
-    method: 'get',
-    ...variables,
-    signal,
-  });
+export const fetchAppControllerGetPost = (
+  variables: AppControllerGetPostVariables,
+  signal?: AbortSignal,
+) =>
+  apiFetch<
+    Schemas.PostResponse,
+    AppControllerGetPostError,
+    undefined,
+    {},
+    {},
+    AppControllerGetPostPathParams
+  >({ url: '/{id}', method: 'get', ...variables, signal });
 
 export const useAppControllerGetPost = <TData = Schemas.PostResponse>(
   variables: AppControllerGetPostVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<Schemas.PostResponse, AppControllerGetPostError, TData>,
+    reactQuery.UseQueryOptions<
+      Schemas.PostResponse,
+      AppControllerGetPostError,
+      TData
+    >,
     'queryKey' | 'queryFn'
   >,
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } = useApiContext(options);
-  return reactQuery.useQuery<Schemas.PostResponse, AppControllerGetPostError, TData>(
-    queryKeyFn({ path: '/{id}', operationId: 'appControllerGetPost', variables }),
-    ({ signal }) => fetchAppControllerGetPost({ ...fetcherOptions, ...variables }, signal),
+  return reactQuery.useQuery<
+    Schemas.PostResponse,
+    AppControllerGetPostError,
+    TData
+  >(
+    queryKeyFn({
+      path: '/{id}',
+      operationId: 'appControllerGetPost',
+      variables,
+    }),
+    ({ signal }) =>
+      fetchAppControllerGetPost({ ...fetcherOptions, ...variables }, signal),
     {
       ...options,
       ...queryOptions,
@@ -115,7 +163,10 @@ export type AppControllerUpdatePostVariables = {
   pathParams: AppControllerUpdatePostPathParams;
 } & ApiContext['fetcherOptions'];
 
-export const fetchAppControllerUpdatePost = (variables: AppControllerUpdatePostVariables, signal?: AbortSignal) =>
+export const fetchAppControllerUpdatePost = (
+  variables: AppControllerUpdatePostVariables,
+  signal?: AbortSignal,
+) =>
   apiFetch<
     Schemas.PostResponse,
     AppControllerUpdatePostError,
@@ -127,13 +178,22 @@ export const fetchAppControllerUpdatePost = (variables: AppControllerUpdatePostV
 
 export const useAppControllerUpdatePost = (
   options?: Omit<
-    reactQuery.UseMutationOptions<Schemas.PostResponse, AppControllerUpdatePostError, AppControllerUpdatePostVariables>,
+    reactQuery.UseMutationOptions<
+      Schemas.PostResponse,
+      AppControllerUpdatePostError,
+      AppControllerUpdatePostVariables
+    >,
     'mutationFn'
   >,
 ) => {
   const { fetcherOptions } = useApiContext();
-  return reactQuery.useMutation<Schemas.PostResponse, AppControllerUpdatePostError, AppControllerUpdatePostVariables>(
-    (variables: AppControllerUpdatePostVariables) => fetchAppControllerUpdatePost({ ...fetcherOptions, ...variables }),
+  return reactQuery.useMutation<
+    Schemas.PostResponse,
+    AppControllerUpdatePostError,
+    AppControllerUpdatePostVariables
+  >(
+    (variables: AppControllerUpdatePostVariables) =>
+      fetchAppControllerUpdatePost({ ...fetcherOptions, ...variables }),
     options,
   );
 };
@@ -148,23 +208,37 @@ export type AppControllerDeletePostVariables = {
   pathParams: AppControllerDeletePostPathParams;
 } & ApiContext['fetcherOptions'];
 
-export const fetchAppControllerDeletePost = (variables: AppControllerDeletePostVariables, signal?: AbortSignal) =>
-  apiFetch<undefined, AppControllerDeletePostError, undefined, {}, {}, AppControllerDeletePostPathParams>({
-    url: '/{id}',
-    method: 'delete',
-    ...variables,
-    signal,
-  });
+export const fetchAppControllerDeletePost = (
+  variables: AppControllerDeletePostVariables,
+  signal?: AbortSignal,
+) =>
+  apiFetch<
+    undefined,
+    AppControllerDeletePostError,
+    undefined,
+    {},
+    {},
+    AppControllerDeletePostPathParams
+  >({ url: '/{id}', method: 'delete', ...variables, signal });
 
 export const useAppControllerDeletePost = (
   options?: Omit<
-    reactQuery.UseMutationOptions<undefined, AppControllerDeletePostError, AppControllerDeletePostVariables>,
+    reactQuery.UseMutationOptions<
+      undefined,
+      AppControllerDeletePostError,
+      AppControllerDeletePostVariables
+    >,
     'mutationFn'
   >,
 ) => {
   const { fetcherOptions } = useApiContext();
-  return reactQuery.useMutation<undefined, AppControllerDeletePostError, AppControllerDeletePostVariables>(
-    (variables: AppControllerDeletePostVariables) => fetchAppControllerDeletePost({ ...fetcherOptions, ...variables }),
+  return reactQuery.useMutation<
+    undefined,
+    AppControllerDeletePostError,
+    AppControllerDeletePostVariables
+  >(
+    (variables: AppControllerDeletePostVariables) =>
+      fetchAppControllerDeletePost({ ...fetcherOptions, ...variables }),
     options,
   );
 };

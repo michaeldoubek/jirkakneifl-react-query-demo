@@ -1,11 +1,7 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router';
-import {
-  useAppControllerCreatePost,
-  useAppControllerGetPost,
-  useAppControllerUpdatePost,
-} from '../api/apiComponents';
 import { useMutation, useQuery } from 'react-query';
+
 function Detail() {
   const { id } = useParams();
   const [title, setTitle] = useState('');
@@ -23,14 +19,14 @@ function Detail() {
     },
   );
 
-  const updatePostMutation = useMutation('updatePost', (data) =>
+  const updatePostMutation = useMutation('updatePost', () =>
     fetch(`http://localhost:3000/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title, content }),
-    }).then((res) => res.json()),
+    }),
   );
 
   const createPostMutation = useMutation('updatePost', () =>
@@ -40,7 +36,7 @@ function Detail() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ title, content }),
-    }).then((res) => res.json()),
+    }),
   );
 
   const handleSubmit = (e: FormEvent) => {
