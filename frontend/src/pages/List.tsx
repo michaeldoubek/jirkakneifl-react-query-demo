@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 function List() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const {
+    data: posts,
+    isLoading,
+    isError,
+    error,
+  } = useQuery('posts', () =>
+    fetch('http://localhost:3000/').then((res) => res.json()),
+  );
 
-  useEffect(() => {
-    const load = async () => {
-      const response = await fetch('http://localhost:3000/');
-      if (response.ok) setPosts(await response.json());
-    };
-
-    load();
-  }, []);
+  if (isLoading) return <p>Loading</p>;
+  if (isError) return <p>Error: {error as string}</p>;
 
   return (
     <div>
@@ -26,7 +27,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {posts.map((post) => (
+          {posts?.map((post: any) => (
             <tr>
               <td>{post.id}</td>
               <td>{post.title}</td>

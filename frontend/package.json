@@ -12,6 +12,8 @@
     "@types/react-dom": "^18.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-query": "^3.39.2",
+    "react-query-swagger": "^15.2.2",
     "react-router": "^6.5.0",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
@@ -20,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "api:codegen": "npx openapi-codegen gen api",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@openapi-codegen/cli": "^2.0.0",
+    "@openapi-codegen/typescript": "^6.0.0"
   }
 }
